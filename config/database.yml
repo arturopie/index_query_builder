@@ -1,0 +1,3 @@
+adapter: postgresql
+host: localhost
+database: index_query_builder_test
