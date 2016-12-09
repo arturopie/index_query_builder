@@ -1,7 +1,7 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'index_query_builder/version'
+require "index_query_builder/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "index_query_builder"
@@ -10,7 +10,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["arturop@nulogy.com"]
   spec.summary       = %q{DSL for getting data for index pages.}
   spec.description   = %q{This gem provides a DSL on top of ActiveRecord to get collection of models for index pages with filters.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/arturopie/index_query_builder"
+  spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
@@ -20,10 +21,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
 
-  spec.add_development_dependency "rspec", "~> 3.3.0"
+  spec.add_development_dependency "rspec", "~> 3.3", ">= 3.3.0"
 
-  spec.add_development_dependency "activerecord", "~> 4.0.0"
-  spec.add_development_dependency "activesupport", "~> 4.0.0"
+  spec.add_development_dependency "activerecord", "~> 4.0", ">= 4.0.0"
+  spec.add_development_dependency "activesupport", "~> 4.0", ">= 4.0.0"
 
   spec.add_development_dependency "pg", "~> 0.18.1"
 end
