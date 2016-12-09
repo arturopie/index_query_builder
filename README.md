@@ -46,9 +46,9 @@ class Comment < ActiveRecord::Base
 end
 ```
 
-And you are building an index page for posts with following requirements:
+And you are building an index page for posts with the following requirements:
 * Order posts by `view_count`.
-* Have a filter for the texts in comments of that post.
+* Have a filter for the texts in comments on that post.
 
 You can write this
 
