@@ -84,9 +84,9 @@ end
 It requires PostgreSQL.
 
     $ cp config/database.yml.sample config/database.yml
-    
+
 Update `config/database.yml` with your connection information.
-    
+
     $ rake db:test:setup
     $ rspec
 
