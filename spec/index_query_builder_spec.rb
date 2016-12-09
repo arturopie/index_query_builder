@@ -4,15 +4,15 @@ require 'integration_spec_helper'
 RSpec.describe IndexQueryBuilder do
   describe 'operator :contains' do
     it 'returns records containing filter value' do
-      Post.create!(title: "Using Rubymine because it's awesome")
-      Post.create!(title: "VIM is useless")
+      Post.create!(title: "This is a post I love")
+      Post.create!(title: "This is another post")
 
-      posts = IndexQueryBuilder.query Post.where(nil), with: { title: 'Rubymine' } do |query|
+      posts = IndexQueryBuilder.query Post.where(nil), with: { title: 'love' } do |query|
         query.filter_field :title, contains: :title
       end
 
       expect(posts.length).to eq(1)
-      expect(posts[0].title).to eq("Using Rubymine because it's awesome")
+      expect(posts[0].title).to eq("This is a post I love")
     end
 
     it 'filters using association' do
@@ -28,15 +28,15 @@ RSpec.describe IndexQueryBuilder do
 
   describe 'operator :equal_to' do
     it 'returns records equal to filter value' do
-      Post.create!(title: "Using Rubymine because it's awesome")
-      Post.create!(title: "VIM is useless")
+      Post.create!(title: "This is a post I love")
+      Post.create!(title: "This is another post")
 
-      posts = IndexQueryBuilder.query Post.where(nil), with: { title: "Using Rubymine because it's awesome" } do |query|
+      posts = IndexQueryBuilder.query Post.where(nil), with: { title: "This is a post I love" } do |query|
         query.filter_field :title, equal_to: :title
       end
 
       expect(posts.length).to eq(1)
-      expect(posts[0].title).to eq("Using Rubymine because it's awesome")
+      expect(posts[0].title).to eq("This is a post I love")
     end
 
     it 'filters using association' do
