@@ -49,13 +49,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord (~> 4.0.0)
-  activesupport (~> 4.0.0)
+  activerecord (~> 4.0, >= 4.0.0)
+  activesupport (~> 4.0, >= 4.0.0)
   bundler (~> 1.7)
   index_query_builder!
   pg (~> 0.18.1)
   rake (~> 10.0)
-  rspec (~> 3.3.0)
+  rspec (~> 3.3, >= 3.3.0)
 
 BUNDLED WITH
-   1.11.2
+   1.12.5
