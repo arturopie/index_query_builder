@@ -6,8 +6,8 @@ require "index_query_builder/version"
 
 # Simple DSL for building queries using filters.
 #
-#   This module makes it easy to fetch records from the database, specially
-#   for showing and filtering records in an index page
+# This module makes it easy to fetch records from the database, specially
+# for showing and filtering records in an index page
 #
 module IndexQueryBuilder
 
@@ -16,21 +16,20 @@ module IndexQueryBuilder
   # @param base_scope [Arel] used to build query on top of this scope
   # @param options [Hash]
   # @option :with [Hash] filters used to build query. Key is filter name, value is value for the filter
-  # @param &block yield to build query using IndexQueryBuilder's DSL
+  # @yield [QueryDefinition] Gives a QueryDefinition object that implements a DSL to define how to apply filters
   # @return [Arel] returns arel object to make it easy to extend query (e.g. add pagination, etc)
   #
   # ==== Example
   #
-  # receive_orders = IndexQueryBuilder.query ReceiveOrder.where(:site_id => site.id), with: { sku_code: 'ABC' } do |query|
-  #   query.filter_field :received
-  #   query.filter_field :reference, contains: :reference
-  #   query.filter_field :expected_delivery_at,
-  #     greater_than_or_equal_to: :from_expected_delivery_at, less_than: :to_expected_delivery_at
-  #   query.filter_field [:receive_order_items, :sku, :code], equal_to: :sku_code
+  #   posts = IndexQueryBuilder.query Post.where(:user_id => user.id), with: { title: 'DSLs are awesome' } do |query|
+  #     query.filter_field :posted
+  #     query.filter_field :title, contains: :title
+  #     query.filter_field :posted_date,
+  #       greater_than_or_equal_to: :from_posted_date, less_than: :to_posted_date
+  #     query.filter_field [:comments, :author, :name], equal_to: :comment_author_name
   #
-  #   query.order_by "expected_delivery_at DESC, receive_orders.id DESC"
-  # end
-  #
+  #     query.order_by "posted_date DESC, posts.created_at DESC"
+  #   end
   def self.query(base_scope, options={}, &block)
     query_definition = QueryDefinition.new
     block.call(query_definition)
@@ -46,7 +45,7 @@ module IndexQueryBuilder
   # @param base_scope [Arel] used to build query on top of this scope
   # @param options [Hash]
   # @option options [Hash] :with filters used to build query. Key is filter name, value is value for the filter
-  # @param &block yield to build query using IndexQueryBuilder's DSL
+  # @yield [QueryDefinition] Gives a QueryDefinition object that implements a DSL to define how to apply filters
   # @return [Arel] returns arel object to make it easy to extend query (e.g. add pagination, etc)
   #
   # ==== Example
