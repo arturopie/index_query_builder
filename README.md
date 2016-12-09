@@ -47,10 +47,30 @@ end
 ```
 
 And you are building an index page for posts with the following requirements:
-* Order posts by `view_count`.
-* Have a filter for the texts in comments on that post.
+* Posts should be ordered by `view_count`.
+* The user should be able to filter posts by texts in post's comments. For example, if `filters` is `{ comment_text: 'This post is amazing' }`, then we should return all the posts with a comment containing `'This post is amazing'`.
+* More filters will be added soon.
 
-You can write this
+Without Index Query Builder, you will probably have to do something like this.
+
+```ruby
+conditions_strings = []
+conditions_params = {}
+
+unless filters[:comment_text].blank?
+  conditions_strings << "comments.text ILIKE :comment_text"
+  conditions_params[:comment_text] = "%#{filters[:comment_text]}%"
+end
+
+conditions = (conditions_params.empty? ? "" : [conditions_strings.join(" AND "), conditions_params])
+
+joins_list = []
+joins_list << {:posts => :comment} if filters[:comment_text].present?
+
+posts = Post.where(conditions).joins(joins_list).order("expected_ship_at desc, id desc")
+```
+
+Or, with Index Query Builder, you can just write this.
 
 ```ruby
 posts = IndexQueryBuilder.query Post, with: filters do |query|
@@ -59,10 +79,14 @@ posts = IndexQueryBuilder.query Post, with: filters do |query|
 end
 ```
 
-Where the `filters` variable is a hash containing the `comment_text` key. For example, if `filters` is `{ comment_text: 'This post is amazing' }`, then `posts.to_a` will return all the posts with a comment containing `'This post is amazing'`.
-
 ## Running tests
 
+It requires PostgreSQL.
+
+    $ cp config/database.yml.sample config/database.yml
+    
+Update `config/database.yml` with your connection information.
+    
     $ rake db:test:setup
     $ rspec
 
