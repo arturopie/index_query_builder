@@ -79,6 +79,18 @@ posts = IndexQueryBuilder.query Post, with: filters do |query|
 end
 ```
 
+## Operators
+
+Operators will apply where clauses to query *only if* the filter_name is present in filters hash.
+
+* :equal_to applies field_name = filter_value
+* :contains applies substring (ILIKE '%filter_value%')
+* :greater_than_or_equal_to applies field_name >= filter_value
+* :less_than applies field_name < filter_value
+* :present_if applies:
+    * field_name IS NOT NULL if filter_value
+    * field_name IS NULL if filter_value
+
 ## Running tests
 
 It requires PostgreSQL.
