@@ -18,30 +18,30 @@ module IndexQueryBuilder
     #
     # ==== Operators
     #
-    # Operators will apply where clauses to query *only if* the filter_name is present in filters hash.
+    # Operators will apply where clauses to query only if the filter_name is present in filters hash.
     #
     # [:equal_to]
-    #   Applies field_name = filter_value
+    #   Applies 'field_name = filter_value'
     # [:contains]
     #   Applies substring (ILIKE '%filter_value%')
     # [:greater_than_or_equal_to]
-    #   Applies field_name >= filter_value
+    #   Applies 'field_name >= filter_value'
     # [:less_than]
-    #   Applies field_name < filter_value
+    #   Applies 'field_name < filter_value'
     # [:present_if]
     #   Applies
-    #     field_name IS NOT NULL if filter_value
-    #     field_name IS NULL if filter_value
+    #   * 'field_name IS NOT NULL' if filter_value is truthy
+    #   * 'field_name IS NULL' if filter_value is falsey
     #
     # === Examples
     #
-    # <tt>query.filter_field :received</tt>
-    # <tt>query.filter_field :reference, contains: :reference</tt>
-    # <tt>query.filter_field [:vendor, :name], equal_to: :vendor_name</tt>
-    # <tt>query.filter_field [:receive_order_items, :sku, :code], equal_to: :sku_code</tt>
-    # <tt>query.filter_field :expected_delivery_at, greater_than_or_equal_to: :from_expected_delivery_at, less_than: :to_expected_delivery_at</tt>
-    # <tt>query.filter_field :expected_delivery_at, less_than_or_equal_to: :to_expected_delivery_at</tt>
-    # <tt>query.filter_field :outbound_trailer_id, present_if: :has_trailer</tt>
+    #   query.filter_field :received
+    #   query.filter_field :reference, contains: :reference
+    #   query.filter_field [:vendor, :name], equal_to: :vendor_name
+    #   query.filter_field [:receive_order_items, :sku, :code], equal_to: :sku_code
+    #   query.filter_field :expected_delivery_at, greater_than_or_equal_to: :from_expected_delivery_at, less_than: :to_expected_delivery_at
+    #   query.filter_field :expected_delivery_at, less_than_or_equal_to: :to_expected_delivery_at
+    #   query.filter_field :outbound_trailer_id, present_if: :has_trailer
     #
     def filter_field(field_name, predicates={equal_to: field_name})
       predicates.each do |operator, filter|

@@ -89,7 +89,7 @@ Operators will apply where clauses to query *only if* the filter_name is present
 * :less_than applies field_name < filter_value
 * :present_if applies:
     * field_name IS NOT NULL if filter_value
-    * field_name IS NULL if filter_value
+    * field_name IS NULL if !filter_value
 
 ## Running tests
 

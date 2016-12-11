@@ -50,16 +50,15 @@ module IndexQueryBuilder
   #
   # ==== Example
   #
-  # receive_order_items = IndexQueryBuilder.query_children :receive_order_items, ReceiveOrder.scoped_by(site), with: filters do |query|
-  #   query.filter_field :received
-  #   query.filter_field :reference, contains: :reference
-  #   query.filter_field :expected_delivery_at,
-  #     greater_than_or_equal_to: :from_expected_delivery_at, less_than: :to_expected_delivery_at
-  #   query.filter_field [:receive_order_items, :sku, :code], equal_to: :sku_code
+  #   comments = IndexQueryBuilder.query_children :comments, Comments, with: { title: 'DSLs are awesome' } do |query|
+  #     query.filter_field :posted
+  #     query.filter_field :title, contains: :title
+  #     query.filter_field :posted_date,
+  #       greater_than_or_equal_to: :from_posted_date, less_than: :to_posted_date
+  #     query.filter_field [:comments, :author, :name], equal_to: :comment_author_name
   #
-  #   query.order_by "expected_delivery_at DESC, receive_orders.id DESC"
-  # end
-  #
+  #     query.order_by "comment_date DESC"
+  #   end
   def self.query_children(child_association, base_scope, options={}, &block)
     parents = query(base_scope.eager_load(child_association), options, &block)
 
