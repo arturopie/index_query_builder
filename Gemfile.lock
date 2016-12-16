@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    index_query_builder (0.0.1)
+    index_query_builder (0.0.2)
 
 GEM
   remote: https://rubygems.org/
